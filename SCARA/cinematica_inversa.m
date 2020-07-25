@@ -93,5 +93,5 @@ for i = 1:length(t)
     plot([T02(1,4) T03(1,4)],[T02(2,4) T03(2,4)])
     axis([-1.6 1.6 -1.6 1.6])
     hold off
-    pause(0.1)
+    pause(0.01)
 end

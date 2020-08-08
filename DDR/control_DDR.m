@@ -14,8 +14,9 @@ classdef control_DDR < handle
        xr = 0;
        yr = 0;
        
-       %Matrix of gaining parameters (2,2)
-       K = [0.5 0.0; 0.0 0.5];
+       K1=0.5; 
+       K2=0.5;
+       q2=0.5;
 
        %omega angular velocity control for left wheel
        control_L = control_omega();
@@ -37,26 +38,19 @@ classdef control_DDR < handle
            obj.xr = xc + obj.a * cos(obj.phi);
            obj.yr = yc + obj.a * sin(obj.phi);
            
+           
        end
        
-       function [xr, yr, phi] = control(obj, xrd, yrd)
+       function [xr, yr, phi] = control(obj, xrd, yrd, phid)
            
-           %Error calculation
-           xre = xrd - obj.xr;
-           yre = yrd - obj.yr;
+           l=sqrt((xrd-obj.xr)^2+(yrd-obj.yr)^2);
+           zeta=atan2((yrd-obj.yr),(xrd-obj.xr))-obj.phi;
+           psi=atan2((yrd-obj.yr),(xrd-obj.xr))-phid;
            
-           %Error matrixv (2,1)
-           e = [xre; yre];
-
-           %Jacobian matrix (2,2)
-           J = [cos(obj.phi) -sin(obj.phi); sin(obj.phi) cos(obj.phi)];
-
-           %control law
-           v = inv(J) * obj.K * e;
-
-           %initial lineal and angular velocities of the robot
-           u = v(1);
-           w = v(2);
+           %d) Ley de control    
+           u=obj.K1*cos(zeta)*l;     % Velocidad lineal de entrada
+           w=obj.K2*zeta+(obj.K1/zeta)*cos(zeta)*sin(zeta)*(zeta+obj.q2*psi); 
+           
 
            %transformation of linear and angular speed to omega velocity of each wheel
            obj.control_R.w_ref_k = (u + w/2) / obj.R;

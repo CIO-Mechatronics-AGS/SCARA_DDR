@@ -9,7 +9,7 @@ kt=0.0532;
 
 % Cálculo de la corriente
 den_ik = (Jm + Bm*T)*(La + Ra*T)+ kt*kb*T^2;
-num_ik = La*(Jm+Bm*T)*ik_1 - kb*T*(Jm*wk_1+T*tL)+ T*(Jm+Bm*T)*Vk;
+num_ik = La*(Jm+Bm*T)*ik_1 - kb*T*(Jm*wk_1 + T*tL)+ T*(Jm+Bm*T)*Vk;
 ik = num_ik/den_ik;
 
 % Cálculo de la velocidad angular

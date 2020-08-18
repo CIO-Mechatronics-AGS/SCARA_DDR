@@ -7,14 +7,14 @@ classdef control_DDR < handle
        xc = 0; %origin in x
        yc = 0; %origin in y
        phi = 0
-       L = 1; %Distance between wheels 
-       R = 1;
+       L = 10; %Distance between wheels 
+       R = 3; %Rim of wheel
        a = 0; %distance from the center of wheels til the control
        
        xr = 0;
        yr = 0;
        
-       K1=0.5; 
+       K1=0.5;
        K2=0.5;
        q2=0.1;
 
